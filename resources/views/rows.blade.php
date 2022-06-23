@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout metaTitle="Blade Test">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Users') }}
@@ -19,13 +19,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
-                                {{-- Task: only every second row should have "bg-red-100" --}}
-                                <tr class="bg-red-100">
-                                    <td>{{-- Task: add row number here: 1, 2, etc. --}}</td>
+                            @foreach ($users as $index => $user)
+                                <tr @if ($index % 2 == 0) class="bg-red-100" @endif >
+                                    <td>{{ $index++ }}</td>
                                     <td>{{ $user->name }}</td>
-                                    {{-- Task: only the FIRST row should have email with "font-bold" --}}
-                                    <td class="font-bold">{{ $user->email }}</td>
+                                    <td class="@if($index == 1) font-bold @endif">{{ $user->email }}</td>
                                     <td>{{ $user->created_at }}</td>
                                 </tr>
                             @endforeach
